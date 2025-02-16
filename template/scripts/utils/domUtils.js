@@ -1,5 +1,11 @@
+
 export function getElement(selectoer) {
     return document.querySelector(selectoer);    
+
+
+export function getElementById(selectoer) {
+    return document.getElementById(selectoer);    
+
 }
 
 export function querySelectorAll(selectoer) {

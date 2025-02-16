@@ -7,7 +7,6 @@ export async function fetchTopMovies() {
 }
 
 
-
 // === Filmen som finns på OMDB ===
 export async function getMovies() {
    
