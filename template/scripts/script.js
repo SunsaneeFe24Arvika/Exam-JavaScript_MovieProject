@@ -1,3 +1,10 @@
+import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
+import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
+
+
+
+
+
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
@@ -18,5 +25,9 @@ function scrollNavigation() {
 }
    
 //<h2 class="popular-title">Our recommendations</h2>
-const popularTitle = ('h2');
+const popularTitle = getElement('.popular-title');
 popularTitle.style.color = 'white';
+
+getMovies();
+getRecomend();
+

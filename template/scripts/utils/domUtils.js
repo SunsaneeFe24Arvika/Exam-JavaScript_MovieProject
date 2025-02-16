@@ -1,5 +1,5 @@
-export function getElementById(selectoer) {
-    return document.getElementById(selectoer);    
+export function getElement(selectoer) {
+    return document.querySelector(selectoer);    
 }
 
 export function querySelectorAll(selectoer) {
@@ -33,3 +33,4 @@ export function getDataSrc(element) {
 export function setDataSrc(element, src) {
     element.dataset.src = src;
 }
+
