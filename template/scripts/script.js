@@ -1,6 +1,7 @@
 
 import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
 import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
+import { getRecommendations } from './components/movieCard.js';
 
 
 
@@ -32,5 +33,8 @@ function scrollNavigation() {
 const popularTitle = getElement('.popular-title');
 popularTitle.style.color = 'white';
 
-getMovies();
-getRecomend();
+getRecomend() 
+    .then(() => {
+        console.log('fetchTopMovies');
+        getRecommendations();
+    });
