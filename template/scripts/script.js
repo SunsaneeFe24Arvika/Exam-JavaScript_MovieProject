@@ -12,3 +12,11 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
     console.log('search.html');
 
 }
+
+function scrollNavigation() {
+    $("html,body").animate({scollTop: document.body.scrollHeight}, "slow");
+}
+   
+//<h2 class="popular-title">Our recommendations</h2>
+const popularTitle = ('h2');
+popularTitle.style.color = 'white';
