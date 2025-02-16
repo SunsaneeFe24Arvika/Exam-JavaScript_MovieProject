@@ -1,34 +1,60 @@
-import { createElement, addClass, appendElement } from "../utils/domUtils";
-import { fetchTopMovies } from "../modules/api";    
-// export function getfilmInfo(info) {
-//         fetch('https://www.omdbapi.com/?i=tt3896198&apikey=635a622')
-//             .then(response => response.json())
-//             .then(movie => console.log(movie))
-//             .catch(error => log(error.message));
-//     }
-    const movieCard = document.querySelector('.movie-information');
 
-  export  function getMoviesInfo(movie) {
-        
-    
-    const movies = createElement('article');
-    addClass(movies, 'movies');
-    movieCard.innerHTML = `
-    figure class="movie__poster">
-        <img class="movie__poster-image" src="https://santosnr6.github.io/Data/Images/Matrix.jpg" alt="${movie.Title}">
-    </figure>
-    <aside class="movie__info">
-        <h2 class="movie__title">${movie.Title}</h2>
-        p class="movie__year">${movie.Year}</p>
-        p class="movie__rated">${movie.Rated}</p>
-        p class="movie__released">${movie.Released}</p>
-        p class="movie__runtime">${movie.Runtime}</p>
-        p class="movie__genre">${movie.Genre}</p>
-        p class="movie__director">${movie.Director}</p>
-        p class="movie__writer">${movie.Writer}</p>
-        p class="movie__actors">${movie.Actors}</p>
-       </aside> `;
+import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
 
-       return movies;
-}
-    
+
+
+
+/*<section class="card-container" id="cardContainer">
+          <!-- <article class="card">
+            <img
+              src="./res/movie-posters/avengers.jpg"
+              alt="avengers"
+              class="card__img"
+            />
+            <aside class="card__content">
+              <h3 class="card__title">Avengers</h3>
+              <p class="card__description">
+                The Avengers and their allies must be willing to sacrifice all
+                in an attempt to defeat the powerful Thanos before his blitz of
+                devastation and ruin puts an end to the universe.
+              </p>
+              <button class="card__btn">Add to favorites</button>
+            </aside>
+          </article> -->
+        </section> */
+
+import { getDataSrc } from "../utils/domUtils";
+
+const cardContainer = getElement('#cardContainer');
+cardContainer.style.backgroundColor = 'Grey';
+
+const card = createElement('article');
+addClass(card, 'card');
+appendChild(cardContainer, card);
+
+const cardImg = createElement('img');
+addClass(cardImg, 'card__img');
+appendChild(card, cardImg);
+cardImg.src = getDataSrc(cardImg);
+
+const cardContent = createElement('aside');
+addClass(cardContent, 'card__content');
+appendChild(card, cardContent);
+
+const cardTitle = createElement('h3');
+addClass(cardTitle, 'card__title');
+appendChild(cardContent, cardTitle);
+cardTitle.style.color = 'white';
+cardTitle.style.hight = '100px';
+
+const cardDescription = createElement('p');
+addClass(cardDescription, 'card__description');
+appendChild(cardContent, cardDescription);
+cardDescription.syle.color = 'white';
+cardTitle.style.hight = '100px';
+
+const cardBtn = createElement('button');
+addClass(cardBtn, 'card__btn');
+appendChild(cardContent, cardBtn);
+
+

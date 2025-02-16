@@ -1,4 +1,12 @@
-import { getMoviesInfo } from "./components/movieCard.js";
+
+import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
+import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
+
+
+
+
+
+
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
@@ -20,12 +28,9 @@ function scrollNavigation() {
 }
    
 //<h2 class="popular-title">Our recommendations</h2>
-const popularTitle = ('h2');
+
+const popularTitle = getElement('.popular-title');
 popularTitle.style.color = 'white';
 
-
-fetch('https://www.omdbapi.com/?i=tt3896198&apikey=635a622')
-    .then(response => response.json())
-    .then(movie => console.log(movie));
-
-
+getMovies();
+getRecomend();

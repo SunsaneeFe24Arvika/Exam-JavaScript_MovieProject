@@ -1,3 +1,10 @@
-const oData = {
-    topMovieList : [],
+
+export function oData(){
+    const oMovieData = {
+        topMovieList: [],
+        movieList: []
+    };
+    
 }
+oData();
+
