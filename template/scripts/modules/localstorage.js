@@ -1,3 +1,4 @@
+
 const lastUser = localStorage.getItem('lastUser');
 const lastUserConvert = JSON.parse(lastUser);
 const getLogin = document.getElementById('login'); //Need to crate a login button in the HTML
@@ -32,3 +33,17 @@ if(movieNumbers) {
 } else {
     document.getElementById('movieNumbers').textContent = 0;
 }
+
+function myFavoriteFilm() {
+    return JSON.parse(localStorage.getItem('myFavorite')) || [];
+}
+
+function updateFavoriteFilm(data) {
+    const myFavorite = getmyFavorite();
+    myFavorite.push(data)
+    myFavorite.sort((a, b) => a.time - b.time);
+    localStorage.setItem('myFavorite', JSON.stringify(myFavorite));
+}
+
+export { myFavoriteFilm, updateFavoriteFilm };
+

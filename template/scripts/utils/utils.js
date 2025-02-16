@@ -1,3 +1,4 @@
+
 export function getElement(selector) {
   return document.querySelector(selector);    
 }
@@ -29,3 +30,6 @@ export function getDataSrc(element) {
 export function setDataSrc(element, src) {
   element.dataset.src = src;
 }
+
+
+

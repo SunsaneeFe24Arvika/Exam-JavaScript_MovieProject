@@ -1,3 +1,4 @@
+import { getMoviesInfo } from "./components/movieCard.js";
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
@@ -13,6 +14,7 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
 
 }
 
+
 function scrollNavigation() {
     $("html,body").animate({scollTop: document.body.scrollHeight}, "slow");
 }
@@ -20,3 +22,10 @@ function scrollNavigation() {
 //<h2 class="popular-title">Our recommendations</h2>
 const popularTitle = ('h2');
 popularTitle.style.color = 'white';
+
+
+fetch('https://www.omdbapi.com/?i=tt3896198&apikey=635a622')
+    .then(response => response.json())
+    .then(movie => console.log(movie));
+
+

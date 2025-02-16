@@ -5,3 +5,4 @@ export async function fetchTopMovies() {
     let movies = await response.json();
     oData.topMovieList = movies;
 }
+

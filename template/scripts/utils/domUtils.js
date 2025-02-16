@@ -1,3 +1,4 @@
+
 export function getElementById(selectoer) {
     return document.getElementById(selectoer);    
 }
@@ -33,3 +34,5 @@ export function getDataSrc(element) {
 export function setDataSrc(element, src) {
     element.dataset.src = src;
 }
+
+
