@@ -1,4 +1,4 @@
-
+import { getMoviesInfo } from "./components/movieCard.js";
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
@@ -14,5 +14,9 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
 
 }
 
+
+fetch('https://www.omdbapi.com/?i=tt3896198&apikey=635a622')
+    .then(response => response.json())
+    .then(movie => console.log(movie));
 
 
