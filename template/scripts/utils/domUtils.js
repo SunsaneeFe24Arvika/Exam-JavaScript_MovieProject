@@ -1,15 +1,10 @@
 
-export function getElement(selectoer) {
-    return document.querySelector(selectoer);    
-
-
-export function getElementById(selectoer) {
-    return document.getElementById(selectoer);    
-
+export function getElement(selector) {
+    return document.querySelector(selector);    
 }
 
-export function querySelectorAll(selectoer) {
-    return document.querySelectorAll(selectoer);
+export function querySelectorAll(selector) {
+    return document.querySelectorAll(selector);
 }
 
 export function createElement(tagname) {

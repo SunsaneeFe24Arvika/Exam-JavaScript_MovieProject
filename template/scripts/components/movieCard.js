@@ -1,60 +1,80 @@
 
-import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
+import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from "../utils/domUtils.js";
+import { fetchTopMovies, getRecomend, getMovies } from "../modules/api.js";
+import { oData } from "../data/data.js";
 
 
 
+export async function getRecommendations() {
+   await fetchTopMovies();
+   const topMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 21); // 20 random movies from the topMovieList
 
-/*<section class="card-container" id="cardContainer">
-          <!-- <article class="card">
-            <img
-              src="./res/movie-posters/avengers.jpg"
-              alt="avengers"
-              class="card__img"
-            />
-            <aside class="card__content">
-              <h3 class="card__title">Avengers</h3>
-              <p class="card__description">
-                The Avengers and their allies must be willing to sacrifice all
-                in an attempt to defeat the powerful Thanos before his blitz of
-                devastation and ruin puts an end to the universe.
-              </p>
-              <button class="card__btn">Add to favorites</button>
-            </aside>
-          </article> -->
-        </section> */
+  
+   const movieInfo = topMovies.map(movie => ({
+       
+           title: movie.Title,
+           description: movie.Trailer_link,
+           poster: movie.Poster,
+       
+   }));
+     
+  console.log('movieInfo:', movieInfo);
+  
+  
+  
+  const cardContainer = getElement('#cardContainer');
+  // if (!cardContainer) {
+  //     console.error('No cardContainer found');
+  //     return;
+  // }
+  
+  cardContainer.textContent = '';
 
-import { getDataSrc } from "../utils/domUtils";
+  movieInfo.forEach(movie => {
+    ourRecommendations(movie);  // Rendera filmer baserat på movieinfo
+  });
 
+}
+
+
+function ourRecommendations(movie) {
 const cardContainer = getElement('#cardContainer');
 cardContainer.style.backgroundColor = 'Grey';
 
 const card = createElement('article');
 addClass(card, 'card');
-appendChild(cardContainer, card);
+
 
 const cardImg = createElement('img');
 addClass(cardImg, 'card__img');
-appendChild(card, cardImg);
-cardImg.src = getDataSrc(cardImg);
+cardImg.src = `${movie.poster}`;
+cardImg.alt = `${movie.title}`;
 
 const cardContent = createElement('aside');
 addClass(cardContent, 'card__content');
-appendChild(card, cardContent);
+
 
 const cardTitle = createElement('h3');
 addClass(cardTitle, 'card__title');
-appendChild(cardContent, cardTitle);
+cardTitle.textContent = `${movie.title}`;
 cardTitle.style.color = 'white';
-cardTitle.style.hight = '100px';
+
 
 const cardDescription = createElement('p');
 addClass(cardDescription, 'card__description');
-appendChild(cardContent, cardDescription);
-cardDescription.syle.color = 'white';
-cardTitle.style.hight = '100px';
+cardDescription.textContent = `${movie.description}`;
+cardDescription.style.color = 'white';
+
 
 const cardBtn = createElement('button');
 addClass(cardBtn, 'card__btn');
-appendChild(cardContent, cardBtn);
+
+cardContainer.appendChild(card);
+card.appendChild(cardImg);
+card.appendChild(cardContent);
+cardContent.appendChild(cardTitle);
+cardContent.appendChild(cardDescription);
+cardContent.appendChild(cardBtn);
 
 
+}
