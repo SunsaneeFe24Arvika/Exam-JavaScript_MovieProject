@@ -1,19 +1,28 @@
 
 import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from "../utils/domUtils.js";
 import { fetchTopMovies, getRecomend, getMovies } from "../modules/api.js";
+import { renderTrailers } from "../modules/caroussel.js";
 import { oData } from "../data/data.js";
 
+export async function moviesCaroussel() {
+    await fetchTopMovies();
+    const randomMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 5); // 5 random movies from the imdbMovies
+    randomMovies.forEach((movie, index) => {
+      renderTrailers(movie, index + 1);
+      });
+  }
+  
 
 
 export async function getRecommendations() {
    await fetchTopMovies();
-   const topMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 21); // 20 random movies from the topMovieList
+   const topMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 20); // 20 random movies from the topMovieList
 
   
    const movieInfo = topMovies.map(movie => ({
        
            title: movie.Title,
-           description: movie.Trailer_link,
+           //description: movie.Trailer_link,
            poster: movie.Poster,
        
    }));
@@ -23,11 +32,6 @@ export async function getRecommendations() {
   
   
   const cardContainer = getElement('#cardContainer');
-  // if (!cardContainer) {
-  //     console.error('No cardContainer found');
-  //     return;
-  // }
-  
   cardContainer.textContent = '';
 
   movieInfo.forEach(movie => {
@@ -39,7 +43,7 @@ export async function getRecommendations() {
 
 function ourRecommendations(movie) {
 const cardContainer = getElement('#cardContainer');
-cardContainer.style.backgroundColor = 'Grey';
+
 
 const card = createElement('article');
 addClass(card, 'card');
@@ -49,6 +53,9 @@ const cardImg = createElement('img');
 addClass(cardImg, 'card__img');
 cardImg.src = `${movie.poster}`;
 cardImg.alt = `${movie.title}`;
+cardImg.addEventListener('click', () => {
+  window.location.href = '/template/movie.html';
+});
 
 const cardContent = createElement('aside');
 addClass(cardContent, 'card__content');
@@ -60,21 +67,9 @@ cardTitle.textContent = `${movie.title}`;
 cardTitle.style.color = 'white';
 
 
-const cardDescription = createElement('p');
-addClass(cardDescription, 'card__description');
-cardDescription.textContent = `${movie.description}`;
-cardDescription.style.color = 'white';
-
-
-const cardBtn = createElement('button');
-addClass(cardBtn, 'card__btn');
-
 cardContainer.appendChild(card);
 card.appendChild(cardImg);
 card.appendChild(cardContent);
 cardContent.appendChild(cardTitle);
-cardContent.appendChild(cardDescription);
-cardContent.appendChild(cardBtn);
-
 
 }
