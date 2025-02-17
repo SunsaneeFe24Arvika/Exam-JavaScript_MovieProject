@@ -14,7 +14,7 @@ export async function getMovies() {
         const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=635a622';
         const response = await fetch(url);
         const imdbMovies = await response.json();
-        console.log(imdbMovies);
+        oData.imdbMovies = imdbMovies;
         
         
     } catch (error) {
