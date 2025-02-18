@@ -22,8 +22,9 @@ if (movieItems) {
 export function searchMovies() {
     let searchInput = getElement("searchInput").value;
     console.log(searchInput);
-    getElement("movie_results").innerHTML = "";
-    getMovies(searchInput)
+    getElement("#searchBtn").addEventListener("click", () => {
+    window.location.replace = "movie.html";
+    fetch(`http://www.omdbapi.com/?apikey=635a622&s=${searchInput}`)
         .then((response) => {
             return response.json();
         })
@@ -62,7 +63,8 @@ export function searchMovies() {
             .catch((error) => {
                 console.error("Error fetching movies:", error);
         });
-    }
+    });
+}
 
     // export async function printResult(result) {
 

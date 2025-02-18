@@ -1,37 +1,35 @@
 
 import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
-import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
+// import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
 import { moviesCaroussel,getRecommendations, getMovieDetails } from './components/movieCard.js';
-import { myFavoriteFilm, updateFavoriteFilm } from './modules/localstorage.js';
-import { searchMovies } from './components/search.js';
+// import { myFavoriteFilm, updateFavoriteFilm } from './modules/localstorage.js';
+// import { searchMovies } from './components/search.js';
 
 
 
 
 
 
-if(window.location.pathname === '/' || window.location.pathname === '/template/index.html') {
-    console.log('index.html');    
-    moviesCaroussel();
-    fetchTopMovies();
-    getRecomend();
-    getMovies();
+if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    console.log('index.html');
+    moviesCaroussel(); 
+    getRecommendations();   
+   
    
     
 
-} else if(window.location.pathname === '/template/favorites.html') {
+} else if(window.location.pathname === '/favorites.html') {
     console.log('favorites.html');
-    myFavoriteFilm();
-    updateFavoriteFilm();
+   
 
-} else if(window.location.pathname === '/template/movie.html') {
+} else if(window.location.pathname === '/movie.html') {
     console.log('movie.html');
-    printResult();
-
-} else if(window.location.pathname === '/template/search.html') {
+    getMovieDetails();
+   
+} else if(window.location.pathname === '/search.html') {
     console.log('search.html');
     searchMovies();
-    
+   
 
 }
 
@@ -42,16 +40,10 @@ if(window.location.pathname === '/' || window.location.pathname === '/template/i
 // }
 
    
-const popularTitle = getElement('.popular-title');
-popularTitle.style.color = 'white';
+// const popularTitle = getElement('.popular-title');
+// popularTitle.style.color = 'white';
 
 
 
 
-getRecomend() 
-    .then(() => {
-        console.log('fetchTopMovies');
-        getRecommendations();
-         
-    });
 

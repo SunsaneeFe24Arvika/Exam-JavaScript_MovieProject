@@ -8,32 +8,19 @@ export async function fetchTopMovies() {
 
 
 // === Filmen som finns på IMDB ===
-export async function getMovies(movieTitle) {
+export async function getMovies(id) {
    
     try {
-        const url = `http://www.omdbapi.com/?i=tt3896198&apikey=635a622&t=${movieTitle}`;
+        const url = `http://www.omdbapi.com/?apikey=635a622&plot=full&i=${id}`;
         const response = await fetch(url);
         const imdbMovies = await response.json();
-        oData.imdbMovies = imdbMovies;
+        console.log(imdbMovies);
         
-        
+        return imdbMovies;
+      
     } catch (error) {
         console.error('Error fetching movies:', error);
     }
 }
 
 
-// === Filmen som elever vill rekommendera ===
-export async function getRecomend() {
-   
-    try {
-        const url = 'https://santosnr6.github.io/Data/favoritemovies.json';
-        const response = await fetch(url);
-        const recomendMovies = await response.json();
-        console.log(recomendMovies);
-        
-        
-    } catch (error) {
-        console.error('Error fetching movies:', error);
-    }
-}

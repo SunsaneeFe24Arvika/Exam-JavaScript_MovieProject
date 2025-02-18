@@ -108,3 +108,6 @@ body {
 .fa-solid .fa-heart {
     color: var(--text-yellow);
 }
+.movie-information {
+    color: var(--text-yellow);
+}
