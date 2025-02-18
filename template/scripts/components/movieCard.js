@@ -3,6 +3,7 @@ import { getElement, querySelectorAll, createElement, appendChild, removeElement
 import { fetchTopMovies, getRecomend, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
 import { oData } from "../data/data.js";
+import { myFavoriteFilm } from "../modules/localstorage.js";
 
 export async function moviesCaroussel() {
     await fetchTopMovies();
@@ -72,4 +73,58 @@ card.appendChild(cardImg);
 card.appendChild(cardContent);
 cardContent.appendChild(cardTitle);
 
+
 }
+
+export async function getMovieDetails() {
+    await getMovies();
+    const imdbMovies = oData.imdbMovies;
+    console.log('imdbMovies:', imdbMovies);
+    const movie = imdbMovies;
+    console.log('movie:', movie);
+    const movieDetails = getElement('#movieInformation');
+    movieDetails.textContent = '';
+  
+    const movieCard = createElement('article');
+    addClass(movieCard, 'movie-card');
+  
+    const movieImg = createElement('img');
+    addClass(movieImg, 'movie-img');
+    movieImg.src = `${movie.Poster}`;
+    movieImg.alt = `${movie.Title}`;
+  
+    const movieContent = createElement('aside');
+    addClass(movieContent, 'movie-content');
+  
+    const movieTitle = createElement('h2');
+    addClass(movieTitle, 'movie-title');
+    movieTitle.textContent = `${movie.Title}`;
+  
+    const movieYear = createElement('p');
+    addClass(movieYear, 'movie-year');
+    movieYear.textContent = `Year: ${movie.Year}`;
+  
+    const movieRating = createElement('p');
+    addClass(movieRating, 'movie-rating');
+    movieRating.textContent = `Rating: ${movie.imdbRating}`;
+
+    movieDetails.appendChild(movieCard);
+    movieCard.appendChild(movieImg);
+    movieCard.appendChild(movieContent);
+    movieContent.appendChild(movieTitle);
+    movieContent.appendChild(movieYear);
+    movieContent.appendChild(movieRating);
+  
+
+}
+
+          // <img class="movie-poster" src="" alt="">
+          // <h1 class="movie title"></h1>
+          // <h2 class="movie-year"></h2>
+          // <h3 class="movie-rating"></h3>
+          // <p class="movie rate"></p>
+          // <p class="movie-runtime"></p>
+          // <p class="movie genre"></p>
+          // <p class="movie-director"></p>
+          // <p class="movie-actors"></p>
+          // <p class="movie-plot"></p>

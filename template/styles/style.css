@@ -105,3 +105,6 @@ body {
     object-fit: cover;
     border-radius: 5px;
 }
+.fa-solid .fa-heart {
+    color: var(--text-yellow);
+}

@@ -7,11 +7,11 @@ export async function fetchTopMovies() {
 }
 
 
-// === Filmen som finns på OMDB ===
-export async function getMovies() {
+// === Filmen som finns på IMDB ===
+export async function getMovies(movieTitle) {
    
     try {
-        const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=635a622';
+        const url = `http://www.omdbapi.com/?i=tt3896198&apikey=635a622&t=${movieTitle}`;
         const response = await fetch(url);
         const imdbMovies = await response.json();
         oData.imdbMovies = imdbMovies;
