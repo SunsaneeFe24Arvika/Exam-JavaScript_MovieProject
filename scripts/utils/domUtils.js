@@ -7,8 +7,8 @@ export function querySelectorAll(selector) {
     return document.querySelectorAll(selector);
 }
 
-export function createElement(tagname) {
-    return document.createElement(tagname);
+export function createElement(tag) {
+    return document.createElement(tag);
 }
 
 export function appendChild(parent, child) {
