@@ -1,114 +1,79 @@
-import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
-import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
-
-export function searchFunction() {
-    window.location.replace = "movie.html";
-}
-
-let changePage = () => {
-    localStorage.setItem("movieId", this.id);
-    window.location.replace = "movie.html";
-};
-
-let movieItems = localStorage.getItem("movieItems");
-if (movieItems) {
-    let movieItemsConvert = JSON.parse(movieItems);
-    console.log(movieItemsConvert);
-    document.getElementById("movieItems").textContent = movieItemsConvert.length;
-} else {
-    document.getElementById("movieItems").textContent = 0;
-}
-
-export function searchMovies() {
-    let searchInput = getElement("searchInput").value;
-    console.log(searchInput);
-    getElement("#searchBtn").addEventListener("click", () => {
-    window.location.replace = "movie.html";
-    fetch(`http://www.omdbapi.com/?apikey=635a622&s=${searchInput}`)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-            data = data.movie_results;
-            const dataFullList = [];
-            for (j = 0; j < data.length; j++) {
-                dataFullList.push(data[j]);
-            }
-            console.log(dataFullList);
-            const dataListResults = [];
-            console.log(dataListResults);
-            console.log(dataListResults[1].Title);
-            for (i = 0; i < dataFullList.length; i++) {
-            if (dataFullList[i].Title.includes(searchInput) ||
-                dataFullList[i].Title.toLowerCase().includes(searchInput) ||
-                dataFullList[i].Title.toUpperCase().includes(searchInput)) {
-                    getElement("#movieInformation").innerHTML += `<article class="movie-information" id="movie-resutl">
-                    <img class="result__img" src="${dataFullList[i].Poster}" alt="${dataFullList[i].Title}" />
-                    <h2 class="result__title">${dataFullList[i].Title}</h2>
-                    <p class="result__year">${dataFullList[i].Year}</p>
-                    <p class="result__rating">${dataFullList[i].imdbRating}</p>
-                    <p class="result__genre">${dataFullList[i].Genre}</p>
-                    <p class="result__description">${dataFullList[i].Plot}</p>
-                    </section>`;
-                    dataListResults.push(dataFullList[i]);
-                    
-                    
-                }
-            }
-            if (dataListResults.length == 0) {
-                getElement("movie_results").textContent = "No results found";
-            }
-        })
-            .catch((error) => {
-                console.error("Error fetching movies:", error);
-        });
-    });
-}
-
-    // export async function printResult(result) {
+// import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from "../utils/domUtils.js";
+// import { fetchTopMovies, getMovies } from "../modules/api.js";
 
 
-    //     const movieInformation = getElement('.movie-information');
-    //     const movieCard = createElement('article');
-    //     addClass(movieCard, 'movie-card');
+// export function searchMovies() {
 
-    //     const movieImg = createElement('img');
-    //     addClass(movieImg, 'movie-img');
-    //     movieImg.src = `${result.poster}`;
-    //     movieImg.alt = `${result.title}`;
+//     const searchInput = getElement("searchInput").value.trim().toLowerCase();
+//     console.log(searchInput);
+//     getElement('#cardContainer').textContent = "";
 
-    //     const movieContent = createElement('aside');
-    //     addClass(movieContent, 'movie-content');
-
-    //     const movieTitle = createElement('h2');
-    //     addClass(movieTitle, 'movie-title');
-    //     movieTitle.textContent = `${result.title}`;
-
-    //     const movieYear = createElement('p');
-    //     addClass(movieYear, 'movie-year');
+//     fetch(getMovies())
+//         .then((response) => response.jsaon())
         
-    //     const movieRating = createElement('p');
-    //     addClass(movieRating, 'movie-rating');
+//         .then((data) => {
+//             console.log(data);
+//             const movieResults = data.movie || []; // Hantera om det saknas data
+//             const filteredMovies = movieResults.filter(movie => 
+//                 movie.Title.toLowerCase().includes(searchInput)
+//             );
 
-    //     const movieGenre = createElement('p');
-    //     addClass(movieGenre, 'movie-genre');
+//             moviesResult(); // Skicka vidare resultaten till visningsfunktionen
+//         })
+//         .catch(error => {
+//             console.error("Error fetching movies:", error);
+//         });
+//         moviesResult();
+// }
 
-    //     const movieDescription = createElement('p');
-    //     addClass(movieDescription, 'movie-description');
-    //     movieDescription.textContent = `${result.description}`;
-    //     movieDescription.style.color = 'white';
+// export function moviesResult(movies) {
+
+//     const movieContainer = getElement("#cardContainer");
+//     movieContainer.innerHTML = ""; // Rensa tidigare resultat
+
+//     if (movies.length === 0) {
+//         movieContainer.textContent = "No results found";
+//         return;
+//     }
+
+//     movies.forEach(movie => {
+//         movieContainer.innerHTML += `
+//             <article class="movie-information">
+//                 <img class="result__img" src="${movie.Poster}" alt="${movie.Title}" />
+//                 <h2 class="result__title">${movie.Title}</h2>
+//                 <p class="result__year">${movie.Year}</p>
+//                 <p class="result__rating">${movie.imdbRating}</p>
+//                 <p class="result__genre">${movie.Genre}</p>
+//                 <p class="result__description">${movie.Plot}</p>
+//             </article>`;
+//     });
+// }
+
+// const movie = getMovies(); 
+//     if (movie && movie.imdbId) {
+//         window.location.href = `search.html?id=${movie.imdbId}`;
+//     } else {
+//         console.error("Movie ID is missing or undefined");
+//     }
+//     console.log('Hello from moviesResult()');
 
 
-    //     movieInformation.appendChild(movieCard);
-    //     movieCard.appendChild(movieImg);
-    //     movieCard.appendChild(movieContent);
-    //     movieContent.appendChild(movieTitle);
-    //     movieContent.appendChild(movieYear);
-    //     movieContent.appendChild(movieRating);
-    //     movieContent.appendChild(movieGenre);
-    //     movieContent.appendChild(movieDescription);
 
-    // }
-            
-            
+ 
+// /* <body>
+// <header class="header">
+//   <div class="content-wrapper header__flex">
+//     <a href="index.html"
+//       ><img class="header__logo" src="./res/logo.png" alt="logotype"
+//     /></a>
+//   </div>
+// </header>
+
+// <!-- Search movies section -->
+// <section>
+//   <div class="content-wrapper">
+//     <h2 class="search-title" id="favoritesHeader">Search Results</h2>
+//     <section class="card-container" id="cardContainer"></section>
+//   </div>
+// </section>
+// </body> */
