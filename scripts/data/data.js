@@ -1,10 +1,6 @@
 
-export function oData(){
-    const oMovieData = {
-        topMovieList: [],
-        movieList: []
-    };
-    
-}
-oData();
+export const oData = {
+    topMovieList : [],
+    favoritesMovies : [],
 
+}

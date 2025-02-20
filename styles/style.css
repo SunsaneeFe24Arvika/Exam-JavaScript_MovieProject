@@ -111,3 +111,9 @@ body {
 .movie-information {
     color: var(--text-yellow);
 }
+.popular-title {
+    color: var(--primary-white);
+}
+.heart-icon {
+    color: var(--text-yellow);
+}

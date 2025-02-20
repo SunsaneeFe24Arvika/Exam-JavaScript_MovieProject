@@ -3,7 +3,7 @@ import { getElement, querySelectorAll, createElement, appendChild, removeElement
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
 import { oData } from "../data/data.js";
-import { myFavoriteFilm } from "../modules/localstorage.js";
+import { myFavoriteFilm } from "../modules/favorites.js";
 
 
 export async function moviesCaroussel() {
@@ -90,6 +90,9 @@ export async function getMovieDetails() {
   
   const movieCard = createElement('article');
   addClass(movieCard, 'movie-card');
+  
+  const movieFigure = createElement('figure');
+  addClass(movieFigure, 'figure');
 
   const movieImg = createElement('img');
   addClass(movieImg, 'movie-img');
@@ -128,7 +131,8 @@ export async function getMovieDetails() {
   moviePlot.textContent = `Plot: ${movie.Plot}`;
 
   appendChild(movieInformation, movieCard);
-  appendChild(movieCard, movieImg);
+  appendChild(movieCard, movieFigure);
+  appendChild(movieFigure, movieImg);
   appendChild(movieCard, movieContent);
   appendChild(movieContent, movieTitle);
   appendChild(movieContent, movieYear);
