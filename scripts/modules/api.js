@@ -13,13 +13,13 @@ export async function getMovies(id) {
     try {
         const url = `http://www.omdbapi.com/?apikey=635a622&plot=full&i=${id}`;
         const response = await fetch(url);
-        const imdbMovies = await response.json();
+        const imdbMovies = await response.json()
         console.log(imdbMovies);
         
         return imdbMovies;
       
     } catch (error) {
-        console.error('Error fetching movies:', error);
+        console.error('Error fetching movies!');
     }
 }
 

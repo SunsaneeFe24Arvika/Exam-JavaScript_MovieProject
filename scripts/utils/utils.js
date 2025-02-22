@@ -1,5 +1,3 @@
-
-
 export function addEventListenersToElements(elements, eventType, callback) {
     elements.forEach(element => {
         if (element) {
