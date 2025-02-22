@@ -63,8 +63,7 @@ cardImg.addEventListener('click', () => {
 //=== add icon ===
 const heartIcon = createElement('i');
 heartIcon.classList.add('fa-heart', 'fa-regular')
-// addClass(heartIcon, 'fa-solid');
-// addClass(heartIcon, 'fa-heart');
+
 
 const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
 const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
