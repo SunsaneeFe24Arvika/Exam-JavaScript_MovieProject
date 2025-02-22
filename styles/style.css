@@ -105,15 +105,18 @@ body {
     object-fit: cover;
     border-radius: 5px;
 }
-.fa-solid .fa-heart {
+.fa-solid {
     color: var(--text-yellow);
 }
 .movie-information {
     color: var(--text-yellow);
 }
 .popular-title {
-    color: var(--primary-white);
-}
-.heart-icon {
     color: var(--text-yellow);
+    font-size: 30px;
+}
+.fa-regular {
+    cursor: pointer;
+    color: var(--text-yellow);
+    transition: color 0.3s ease;
 }

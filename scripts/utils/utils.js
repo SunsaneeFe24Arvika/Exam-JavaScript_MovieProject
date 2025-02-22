@@ -1,12 +1,17 @@
-import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
-
-export function heartIcon() {
-
-    const cardContainer = getElement('#cardContainer');
-    const iconHeart = createElement('i');
-    addClass(iconHeart, 'i');
-    appendChild(cardContainer, iconHeart);
-
-    
+export function addEventListenersToElements(elements, eventType, callback) {
+    elements.forEach(element => {
+        if (element) {
+            element.addEventListener(eventType, callback);
+        }
+    });
 }
 
+
+
+
+export function removeEventListenersFromElements(elements, eventType, callback) {
+    if (elements) {
+        elements.removeEventListenersFromElements(eventType, callback);
+        return () => elements.removeEventListenersFromElements(eventType, callback);
+    }
+}
