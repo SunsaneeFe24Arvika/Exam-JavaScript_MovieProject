@@ -1,11 +1,12 @@
 
-import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from "../utils/domUtils.js";
+import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
 import { oData } from "../data/data.js";
-import { myFavoriteFilm } from "../modules/localstorage.js";
+//import { myFavoriteFilm } from "../modules/localstorage.js";
+import { addEventListenersToElements, removeEventListenersFromElements } from "../utils/utils.js";
 
-
+//Get 5 random trailers
 export async function moviesCaroussel() {
   await fetchTopMovies();
   const randomMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 5); // 5 random movies from the imdbMovies
@@ -14,7 +15,7 @@ export async function moviesCaroussel() {
     });
 }
 
-
+//To get 20 random reccomendation movies
 export async function getRecommendations() {
    await fetchTopMovies();
    const topMovies = oData.topMovieList.sort(() => Math.random() - 0.5).slice(0, 20); // 20 random movies 
@@ -40,13 +41,16 @@ export async function getRecommendations() {
 
 }
 
-
+// To print out the recomendation movies
 function ourRecommendations(movie) {
   const cardContainer = getElement('#cardContainer');
 
 
 const card = createElement('article');
 addClass(card, 'card');
+
+const figure = createElement('figure');
+addClass(figure, 'card_figure');
 
 
 const cardImg = createElement('img');
@@ -56,6 +60,38 @@ cardImg.alt = `${movie.title}`;
 cardImg.addEventListener('click', () => {
   window.location.href = `movie.html?id=${movie.imdbId}`;
 });
+//=== add icon ===
+const heartIcon = createElement('i');
+heartIcon.classList.add('fa-heart', 'fa-regular')
+// addClass(heartIcon, 'fa-solid');
+// addClass(heartIcon, 'fa-heart');
+
+const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
+if (myFav) {
+  heartIcon.addClass('fa-solid');
+  heartIcon.removeClass('fa-regular');
+  // heartIcon.removeClass('fa-heart');
+}
+
+heartIcon.addEventListener('click', () => {
+  heartIcon.classList.toggle('fa-solid');
+  heartIcon.classList.toggle('fa-regular');
+
+  const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+  if (heartIcon.classList.contains('fa-solid')) {
+    myFavorit.push(movie);
+  } else {
+    const index = myFavorit.findIndex(fav => fav.imdbId === movie.imdbId);
+    if (index > -1) {
+      myFavorit.splice(index, 1);
+    }
+  }
+  localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
+
+  console.log('Mina favorit filmer: ', myFavorit);
+  
+});
 
 const cardContent = createElement('aside');
 addClass(cardContent, 'card__content');
@@ -64,18 +100,21 @@ addClass(cardContent, 'card__content');
 const cardTitle = createElement('h3');
 addClass(cardTitle, 'card__title');
 cardTitle.textContent = `${movie.title}`;
-cardTitle.style.color = 'white';
+cardTitle.style.color = '#F5C518';
+cardTitle.style.fontSize = '25px';
 
 
 cardContainer.appendChild(card);
-card.appendChild(cardImg);
+card.appendChild(figure);
+figure.appendChild(cardImg);
+figure.appendChild(heartIcon);
 card.appendChild(cardContent);
 cardContent.appendChild(cardTitle);
 
 
 }
 
-
+// To display the movie that you choose from our recomend
 export async function getMovieDetails() {
   
   const movieId = new URLSearchParams(window.location.search);

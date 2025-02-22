@@ -1,9 +1,9 @@
 
-import { getElement, querySelectorAll, createElement, appendChild, removeElement, addClass, removeClass, getDataSrc, setDataSrc } from './utils/domUtils.js';
-// import { fetchTopMovies, getMovies, getRecomend } from './modules/api.js';
+
 import { moviesCaroussel,getRecommendations, getMovieDetails } from './components/movieCard.js';
+//import { searchMovies } from './components/search.js';
 // import { myFavoriteFilm, updateFavoriteFilm } from './modules/localstorage.js';
-// import { searchMovies } from './components/search.js';
+import { searchMovies } from './components/search.js';
 
 
 
@@ -14,7 +14,7 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
     console.log('index.html');
     moviesCaroussel(); 
     getRecommendations();   
-   
+    
    
     
 
@@ -35,13 +35,6 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
 
 
 
-// function scrollNavigation() {
-//     $("html,body").animate({scollTop: document.body.scrollHeight}, "slow");
-// }
-
-   
-// const popularTitle = getElement('.popular-title');
-// popularTitle.style.color = 'white';
 
 
 
