@@ -23,4 +23,17 @@ export async function getMovies(id) {
     }
 }
 
-
+export async function fetchImdbMovies() {
+   const searchInput = getElement("#searchInput").value;
+    try {
+        const url = `http://www.omdbapi.com/?apikey=635a622&s=${encodeURIComponent(searchInput)}`;
+        const response = await fetch(url);
+        const imdbSeach = await response.json()
+        
+        
+        return imdbMovies;
+      
+    } catch (error) {
+        console.error('Error fetching movies!');
+    }
+}
