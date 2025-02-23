@@ -3,8 +3,7 @@ import { getElement, createElement, removeElement, appendChild, addClass, remove
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
 import { oData } from "../data/data.js";
-//import { myFavoriteFilm } from "../modules/localstorage.js";
-import { addEventListenersToElements, removeEventListenersFromElements } from "../utils/utils.js";
+
 
 //Get 5 random trailers
 export async function moviesCaroussel() {
@@ -54,7 +53,7 @@ addClass(figure, 'card_figure');
 
 
 const cardImg = createElement('img');
-addClass(cardImg, 'card__img');
+addClass(cardImg, 'card-img');
 cardImg.src = `${movie.poster}`;
 cardImg.alt = `${movie.title}`;
 cardImg.addEventListener('click', () => {
@@ -70,7 +69,7 @@ const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
 if (myFav) {
   heartIcon.addClass('fa-solid');
   heartIcon.removeClass('fa-regular');
-  // heartIcon.removeClass('fa-heart');
+  
 }
 
 heartIcon.addEventListener('click', () => {
@@ -93,7 +92,7 @@ heartIcon.addEventListener('click', () => {
 });
 
 const cardContent = createElement('aside');
-addClass(cardContent, 'card__content');
+addClass(cardContent, 'card-content');
 
 
 const cardTitle = createElement('h3');
