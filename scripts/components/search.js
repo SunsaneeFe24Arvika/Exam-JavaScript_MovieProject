@@ -1,8 +1,7 @@
-import { getMovies, fetchImdbMovies, fetchTopMovies } from "../modules/api.js";
-import { getElement, createElement, appendChild, removeElement, addClass, removeClass } from "../utils/domUtils.js";
+
+
 import { getMovieCard } from "../utils/utils.js";
-import { getRecommendations } from "./movieCard.js";
-//import { setupSearchForm } from "../data/data.js";
+
 
 
 /* <form class="header__form" id="searchForm">
@@ -23,19 +22,23 @@ import { getRecommendations } from "./movieCard.js";
 //   </div>
 // </section>
 
-export async function getSearchItem(movies) {
-  await fetchImdbMovies();
-  const searchMovies = movies.map(movie => ({
-    title: movie.Title,
-    poster: movie.Poster,
-    imdbId: movie.imdbID,
-  }));
-  console.log('Här är dina filmer:', searchMovies);
-  // if (searchMovies == 0) {
-  //     console.log("Vi kan inte hitta din film!");
-      
-  // }else {
-  //   getMovieCard();
-  // }
 
+
+export async function fetchImdbMovies() {
+  const searchInput = 'Batman';
+  console.log(searchInput);
+  
+  try {
+      const url = `http://www.omdbapi.com/?apikey=635a622&s=${encodeURIComponent(searchInput)}`;
+      const response = await fetch(url);
+      const imdbSearch = await response.json()
+      console.log("Sökresultat från API: ", imdbSearch);
+      getMovieCard();
+      
+     
+      return imdbSearch;
+
+  } catch (error) {
+      console.error('Error fetching movies!');
+  }
 }

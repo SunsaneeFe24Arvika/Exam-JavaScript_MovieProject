@@ -1,7 +1,11 @@
 
 
 import { moviesCaroussel,getRecommendations, getMovieDetails } from './components/movieCard.js';
-import { fetchImdbMovies } from './modules/api.js';
+//import { displaySearchItem } from './components/search.js';
+//import { searchForm } from './components/search.js';
+import { fetchImdbMovies } from './components/search.js';
+import { myFavMovies } from './modules/favorites.js';
+import { getElement } from './utils/domUtils.js';
 
 
 
@@ -12,12 +16,22 @@ import { fetchImdbMovies } from './modules/api.js';
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
     moviesCaroussel(); 
-    getRecommendations();   
+    getRecommendations();  
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchBtn = document.getElementById("searchBtn");
+    
+        searchBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = "search.html";
+        })
+    })
     
     
 
 } else if(window.location.pathname === '/favorites.html') {
     console.log('favorites.html');
+    myFavMovies();
     
    
 
@@ -31,7 +45,11 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
 }
 
 
-
+// async function handleSearch() {
+//     const movies = await fetchImdbMovies();
+//     getSearchItem(movies);
+//     window.location.href = 'search.html';
+// }
 
 
 

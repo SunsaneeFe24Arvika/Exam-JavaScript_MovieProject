@@ -1,13 +1,5 @@
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 
-// export function oData(){
-//     const oMovieData = {
-//         topMovieList: [],
-        
-//     };
-    
-// }
-// oData();
 
 export const oData = {
     topMovieList: [],
@@ -29,12 +21,7 @@ const imdbKey = '635a622';
 
 export async function getFavMovies() {
     let movies = JSON.parse(localStorage.getItem('movies')) || [];
-    if(movies.length < 1) {
-        console.log(movies);
 
-        movies = await fetchTopMovies();
-        setMovies(movies);
-    }
     return movies;
 }
 
@@ -54,4 +41,10 @@ export async function removeFavMovies(id) {
 function setMovies(movies) {
     localStorage.setItem('movies', JSON.stringify(movies));
 }
-
+// export function updateFavMovies(data) {
+//     const myMovies = getFavMovies();
+//     myMovies.push(data)
+//     myMovies.sort((a, b) => a.title - b.title);
+//     localStorage.setItem('myMovies', JSON.stringify(myMovies));
+    
+// }
