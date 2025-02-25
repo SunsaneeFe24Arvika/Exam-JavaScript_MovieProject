@@ -1,6 +1,7 @@
-import { getElement } from "../utils/domUtils.js";
-import { getMovieCard } from "../utils/utils.js";
-
+import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
+import { getMovieCard, setupCardsSection,  } from "../utils/utils.js";
+import { getFavMovies, addFavMovies, removeFavMovies } from "../data/data.js";
+import { fetchTopMovies } from "./api.js";
 
 console.log('Hello from favorites page');
 
@@ -11,37 +12,42 @@ export function favoriteMovies(button) {
             window.location.href = 'favorites.html?=';
 
         }
-        addfavorites();
+        
     })
     
 }
 
 
-export function addfavorites() {
-    const myfavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const favorites = myfavorites.some(myMovies => myMovies.imdbId === movie.imdbId);
-    console.log(getMovieCard(), favorites);
-    
-}
 
 
+// const heartIcon = createElement('i');
+// heartIcon.classList.add('fa-heart', 'fa-regular')
 
 
+// const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+// const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
+// if (myFav) {
+//   heartIcon.addClass('fa-solid');
+//   heartIcon.removeClass('fa-regular');
+  
+// }
 
+// heartIcon.addEventListener('click', () => {
+//   heartIcon.classList.toggle('fa-solid');
+//   heartIcon.classList.toggle('fa-regular');
 
+//   const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+//   if (heartIcon.classList.contains('fa-solid')) {
+//     myFavorit.push(movie);
+//   } else {
+//     const index = myFavorit.findIndex(fav => fav.imdbId === movie.imdbId);
+//     if (index > -1) {
+//       myFavorit.splice(index, 1);
+//     }
+//   }
+//   localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
 
-
-
-
-
-
-
-
-
-// <!-- Favorite movies section -->
-// <section>
-//   <div class="content-wrapper">
-//     <h2 class="favorites-title" id="favoritesTitle">Your favorites</h2>
-//     <section class="card-container" id="cardContainer">
-      
-//     </section>
+//   console.log('Mina favorit filmer: ', myFavorit);
+//   getMovieCard(myFavorit);
+  
+// });

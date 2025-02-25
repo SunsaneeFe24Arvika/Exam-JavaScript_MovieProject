@@ -120,3 +120,20 @@ body {
     color: var(--text-yellow);
     transition: color 0.3s ease;
 }
+
+@media screen and (max-width: 600px) {
+    body {
+        width: 100%;
+        margin: 0 10px;
+    }
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+
+    }
+    .card-container {
+        display: grid;
+  grid-template-columns: 1fr;
+    }
+
+}

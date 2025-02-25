@@ -1,13 +1,18 @@
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 
-export function oData(){
-    const oMovieData = {
-        topMovieList: [],
+// export function oData(){
+//     const oMovieData = {
+//         topMovieList: [],
         
-    };
+//     };
     
+// }
+// oData();
+
+export const oData = {
+    topMovieList: [],
+    searchList: [],
 }
-oData();
 
 const imdbKey = '635a622';
 // const movies = {

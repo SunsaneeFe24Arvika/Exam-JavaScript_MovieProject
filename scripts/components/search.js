@@ -1,5 +1,8 @@
-import { getMovies, fetchImdbMovies } from "../modules/api.js";
+import { getMovies, fetchImdbMovies, fetchTopMovies } from "../modules/api.js";
 import { getElement, createElement, appendChild, removeElement, addClass, removeClass } from "../utils/domUtils.js";
+import { getMovieCard } from "../utils/utils.js";
+import { getRecommendations } from "./movieCard.js";
+//import { setupSearchForm } from "../data/data.js";
 
 
 /* <form class="header__form" id="searchForm">
@@ -20,46 +23,19 @@ import { getElement, createElement, appendChild, removeElement, addClass, remove
 //   </div>
 // </section>
 
-const searchForm = getElement('#serchForm');
-const searchBtn = getElement('#searchBtn');
-
-
-
-function searchButton(button) {
-  getElement('#searchBtn').addEventListener('click', (event) => {
-    event.preventDefault();
-    if (button === event) {
-      window.location.href = 'search.html?=';
-    }
-    searchMovies();
-})
-  
-}
+export async function getSearchItem(movies) {
+  await fetchImdbMovies();
+  const searchMovies = movies.map(movie => ({
+    title: movie.Title,
+    poster: movie.Poster,
+    imdbId: movie.imdbID,
+  }));
+  console.log('Här är dina filmer:', searchMovies);
+  // if (searchMovies == 0) {
+  //     console.log("Vi kan inte hitta din film!");
       
-  
-// const section = getElement('section');
+  // }else {
+  //   getMovieCard();
+  // }
 
-//     console.log('Hello from searchMomies function!');
-//     const API_KEY = "635a622"; // Ersätt med din API-nyckel
-
-    
-
-  export function searchMovies() {
-    const searchInput = getElement("#searchInput").value;
-    const url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(searchInput)}`;
-    
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log("Sökresultat:", data);
-            displayMovies(data.Search); // Visa filmerna
-        })
-        .catch(error => console.error("Fel vid hämtning av filmer:"));
 }
-
-
-
-// export function displaySearch() {
-//   const displayMovies = getElement("#cardContainer");
-//   detailsDiv.innerHTML = getMovieCard();
-// }

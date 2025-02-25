@@ -1,4 +1,7 @@
+import { getSearchItem } from "../components/search.js";
 import { oData } from "../data/data.js";
+import { getElement } from "../utils/domUtils.js";
+import { getMovieCard } from "../utils/utils.js";
 
 export async function fetchTopMovies() {
     const response = await fetch('https://santosnr6.github.io/Data/favoritemovies.json');
@@ -24,15 +27,18 @@ export async function getMovies(id) {
 }
 
 export async function fetchImdbMovies() {
-   const searchInput = getElement("#searchInput").value;
+    const searchInput = 'Batman';
+    console.log(searchInput);
+    
     try {
         const url = `http://www.omdbapi.com/?apikey=635a622&s=${encodeURIComponent(searchInput)}`;
         const response = await fetch(url);
-        const imdbSeach = await response.json()
+        const imdbSearch = await response.json()
+        console.log("Sökresultat från API: ", imdbSearch);
         
-        
-        return imdbMovies;
-      
+       
+        return imdbSearch;
+
     } catch (error) {
         console.error('Error fetching movies!');
     }
