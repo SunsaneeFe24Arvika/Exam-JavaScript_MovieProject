@@ -25,13 +25,3 @@ export function removeClass(element, className) {
     return element.classList.remove(className);
 }
 
-// export function addFormListener() {
-//     getElement('#searchForm').addEventListener('submit', async (event) => {
-//         event.preventDefault();
-//         if(validateAddPlantForm()) {
-//             const movies = await getMovies();
-//             log('Movies is: ', movies);
-//             getMovieCard();
-//         }
-//     });
-// }

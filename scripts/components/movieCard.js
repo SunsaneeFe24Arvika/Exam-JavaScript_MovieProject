@@ -2,7 +2,7 @@
 import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
-import { oData } from "../data/data.js";
+import { getFavMovies, oData } from "../data/data.js";
 
 
 //Get 5 random trailers
@@ -32,7 +32,6 @@ export async function getRecommendations() {
   
   
   
-  const cardContainer = getElement('#cardContainer');
   
   movieInfo.forEach(movie => {
     ourRecommendations(movie);  // Rendera filmer baserat på movieinfo
