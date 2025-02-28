@@ -1,44 +1,65 @@
 
-
-import { getMovieCard } from "../utils/utils.js";
-
-
-
-/* <form class="header__form" id="searchForm">
-          <input
-            class="header__input"
-            id="searchInput"
-            type="text"
-            aria-label="Search"
-          />
-          <button class="header__form-btn" id="searchBtn">Search</button>
-        </form> */
-
-// <!-- Search movies section -->
-// <section>
-//   <div class="content-wrapper">
-//     <h2 class="search-title" id="favoritesHeader">Search Results</h2>
-//     <section class="card-container" id="cardContainer"></section>
-//   </div>
-// </section>
+import { fetchImdbMovies } from "../modules/api.js";
+import { getElement } from "../utils/domUtils.js";
+import { ourRecommendations } from "./movieCard.js";
 
 
-
-export async function fetchImdbMovies() {
-  const searchInput = 'Batman';
-  console.log(searchInput);
-  
-  try {
-      const url = `http://www.omdbapi.com/?apikey=635a622&s=${encodeURIComponent(searchInput)}`;
-      const response = await fetch(url);
-      const imdbSearch = await response.json()
-      console.log("Sökresultat från API: ", imdbSearch);
-      getMovieCard();
-      
-     
-      return imdbSearch;
-
-  } catch (error) {
-      console.error('Error fetching movies!');
-  }
+//=== funktion för att handtera Sök knappen och den ska skicka sök värdret till movieSearch() och byta sida till Search.html ===
+export async function searchFunction() {
+  let searchInput = getElement('#searchInput');
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchBtn = document.getElementById("searchBtn");
+    
+        searchBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = `search.html?search=${searchInput.value}`;
+        });
+    });
 }
+
+
+//=== Funktion för att hämta filmen utifrån IMDB API:t ===
+export async function movieSearch() {
+  console.log('Hej från Search sidan!');
+  const urlSearch = new URLSearchParams(window.location.search);
+  const search = urlSearch.get('search');
+
+  try {
+      const response = await fetchImdbMovies(search);
+
+      const movies = response.Search && Array.isArray(response.Search) 
+      ? response.Search.map(movie => {
+        let poster = movie.Poster === "N/A" || !movie.Poster  //Check för saknar bilder
+                  ? "../res/icons/missing-poster.svg"  
+                  : movie.Poster;
+
+              return {
+                  title: movie.Title,
+                  poster: poster,
+                  imdbID: movie.imdbID,
+              };
+            })
+      : [];
+
+      if (movies.length === 0) {
+          console.error('Movies not found');
+          const movieResult = getElement('#cardContainer');
+          movieResult.innerHTML = `<h1 class="msg-error">Inga film hittades!</h1>`;
+          return;
+      } else {
+          console.log('Movies found:', movies);
+          const movieResult = getElement('#cardContainer');
+          movieResult.textContent = ''; // rensa tidigare sök
+
+          movies.forEach(movie => {
+              ourRecommendations(movie); // Skicka varje filmer movie card
+          });
+      }
+  } catch (error) {
+      console.error('Error fetching movies:', error);
+      const movieResult = getElement('#cardContainer');
+      movieResult.textContent = 'Error fetching movies. Please try again later.';
+  }
+
+}
+
