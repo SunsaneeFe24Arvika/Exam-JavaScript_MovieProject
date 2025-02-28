@@ -1,0 +1,251 @@
+@import url('./carousel.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Variables */
+:root {
+    --header-grey: #121212;
+    /* Primary BG bör vara din bakgrundsfärg */
+    --primary-bg: #000000;
+    --primary-white: #ffffff;
+    --primary-grey: #1A1A1A;
+    --text-yellow: #F5C518;
+
+    --font-heading-title: 30px;
+    --font-sub-heading: 24px;
+    --font-third-heading: 20px;
+    --font-text-content: 18px;
+}
+
+/* Base */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--primary-bg);
+    max-width: 100%;
+}
+
+/* Utils */
+.content-wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+.center {
+    margin: 0 auto;
+}
+
+.d-none {
+    display: none;
+}
+
+.header {
+    background-color: var(--header-grey);
+    width: 100%;
+    padding: 1.5rem;
+    z-index: 999;
+}
+
+.header__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    width: 150px;
+    background-color: yellow;
+}
+
+.header__form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header__input {
+    width: 50%;
+    padding: 1rem;
+    border-radius: 2rem 0 0 2rem;
+    border: none;
+}
+
+.header__form-btn {
+    border-radius: 0 2rem 2rem 0;
+    width: 5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.header__fav-btn {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: var(--text-yellow);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-content: center;
+    height: fit-content;
+    
+    
+}
+.card__description {
+    font-size: 14px;
+}
+
+.card {
+    margin: 2rem auto;
+}
+
+.card-content {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;   
+
+}
+.msg-error {
+    color: var(--primary-white);
+    font-size: 30px;
+    grid-column: span 2;
+    padding: 3rem;
+}
+.card__title {
+    color: var(--text-yellow);
+    font-size: 25px;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.card-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.movie-information {
+    margin-top: 3rem;
+    color: var(--text-yellow);
+}
+.movie-card {
+    display: flex;
+    justify-content: center;
+}
+.movie-img {
+    width: 400px;
+    height: 600px;
+    border-radius: 8px;
+    border: none;
+    
+}
+.movie-content {
+    margin-left: 3rem;
+}
+.movie-title {
+    font-size: var(--font-heading-title);
+}
+.movie-year, .movie-rating  {
+    font-size: var(--font-sub-heading);
+}
+
+.movie-genre,
+.movie-director, .movie-actors {
+    font-size: var(--font-third-heading);
+}
+.movie-plot {
+    font-size: var(--font-text-content);
+    padding-top: 1rem;
+}
+.popular-title {
+    color: var(--text-yellow);
+    font-size: 30px;
+}
+.fa-heart, .fa-regular {
+    transform: scale(1.5);
+    cursor: pointer;
+    color: var(--text-yellow);
+    transition: color 0.3s ease;
+}
+
+/* === Favorite page ==== */
+.search-title {
+    padding-top: 2rem;
+    color: var(--text-yellow);
+    font-size: 50px;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    body {
+        width: 100%;
+        
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .header__logo {
+        margin-top: 1.5rem;
+    }
+    .header__form {
+        padding-top: 20px;
+    }
+    .header__input {
+        width: 90%;
+    }
+    .header__fav-btn {
+        padding: 20px;
+    }
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+       text-align: center;
+    }
+    .card-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .card__title {
+        color: var(--text-yellow);
+        font-size: 18px;
+    }
+    /* === Search page ===*/
+    .search-title {
+        font-size: 30px;
+    }
+    .card-content {
+        padding: 0 1rem;
+        text-align: left;
+    }
+/* === Movie details ===*/
+    .movie-card {
+        flex-direction: column;
+        align-items: center;
+    }
+    .movie-img {
+        width: 95%;
+        height: 95%;
+    }
+    .movie-content {
+        text-align: left;
+        margin: 2rem 1rem;
+    }
+
+}
