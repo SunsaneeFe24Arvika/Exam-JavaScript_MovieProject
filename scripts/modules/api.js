@@ -1,7 +1,5 @@
 
 import { oData } from "../data/data.js";
-//import { displaySearchItem } from "../components/search.js";
-import { getMovieCard } from "../utils/utils.js";
 
 
 export async function fetchTopMovies() {
@@ -11,7 +9,7 @@ export async function fetchTopMovies() {
 }
 
 
-// === Filmen som finns på IMDB ===
+// === Hämta filmer från IMDB med movie-id, sedan skicka filmens information till function getMovieDetails() ===
 export async function getMovies(id) {
    
     try {
@@ -24,6 +22,26 @@ export async function getMovies(id) {
       
     } catch (error) {
         console.error('Error fetching movies!');
+        checkImageExists();
+    }
+}
+
+// === Hämta filmer från IMDB av sök sträng och retunera sökresultat i search sida ===
+export async function fetchImdbMovies(input) {
+   
+    try {
+        const url = `http://www.omdbapi.com/?apikey=635a622&s=${input}&type=movie`;
+        const response = await fetch(url);
+        const imdbMovies = await response.json()
+        console.log(imdbMovies);
+        
+
+
+        return imdbMovies;
+      
+    } catch (error) {
+        console.error('Error fetching movies!');
+        
     }
 }
 

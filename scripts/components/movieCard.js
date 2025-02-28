@@ -1,8 +1,9 @@
 
-import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
+import { getElement, createElement, appendChild, addClass} from "../utils/domUtils.js";
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
-import { getFavMovies, oData } from "../data/data.js";
+import { oData } from "../data/data.js";
+import { handleToggle } from "../utils/utils.js";
 
 
 //Get 5 random trailers
@@ -24,14 +25,13 @@ export async function getRecommendations() {
        
            title: movie.Title,
            poster: movie.Poster,
-           imdbId: movie.imdbID,
+           imdbID: movie.imdbID,
+           
        
    }));
+
      
   console.log('movieInfo:', movieInfo);
-  
-  
-  
   
   movieInfo.forEach(movie => {
     ourRecommendations(movie);  // Rendera filmer baserat på movieinfo
@@ -39,8 +39,8 @@ export async function getRecommendations() {
 
 }
 
-// To print out the recomendation movies
-function ourRecommendations(movie) {
+// === För att visa vår rekomederat flimer ===
+export function ourRecommendations(movie) {
   const cardContainer = getElement('#cardContainer');
 
 
@@ -56,39 +56,15 @@ addClass(cardImg, 'card-img');
 cardImg.src = `${movie.poster}`;
 cardImg.alt = `${movie.title}`;
 cardImg.addEventListener('click', () => {
-  window.location.href = `movie.html?id=${movie.imdbId}`;
+  window.location.href = `movie.html?id=${movie.imdbID}`;
 });
 //=== add icon ===
 const heartIcon = createElement('i');
-heartIcon.classList.add('fa-heart', 'fa-regular')
+heartIcon.classList.add('fa-heart', 'fa-regular');
 
 
-const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
-const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
-if (myFav) {
-  heartIcon.addClass('fa-solid');
-  heartIcon.removeClass('fa-regular');
-  
-}
+handleToggle(movie, heartIcon);
 
-heartIcon.addEventListener('click', () => {
-  heartIcon.classList.toggle('fa-solid');
-  heartIcon.classList.toggle('fa-regular');
-
-  const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
-  if (heartIcon.classList.contains('fa-solid')) {
-    myFavorit.push(movie);
-  } else {
-    const index = myFavorit.findIndex(fav => fav.imdbId === movie.imdbId);
-    if (index > -1) {
-      myFavorit.splice(index, 1);
-    }
-  }
-  localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
-
-  console.log('Mina favorit filmer: ', myFavorit);
-  
-});
 
 const cardContent = createElement('aside');
 addClass(cardContent, 'card-content');
@@ -97,21 +73,23 @@ addClass(cardContent, 'card-content');
 const cardTitle = createElement('h3');
 addClass(cardTitle, 'card__title');
 cardTitle.textContent = `${movie.title}`;
-cardTitle.style.color = '#F5C518';
-cardTitle.style.fontSize = '25px';
-
+cardTitle.addEventListener('click', () => {
+  window.location.href = `movie.html?id=${movie.imdbID}`;
+});
 
 cardContainer.appendChild(card);
 card.appendChild(figure);
 figure.appendChild(cardImg);
-figure.appendChild(heartIcon);
+cardContent.appendChild(heartIcon);
 card.appendChild(cardContent);
 cardContent.appendChild(cardTitle);
 
 
 }
 
-// To display the movie that you choose from our recomend
+
+
+// === Hämta filmer och Visa filmer information ===
 export async function getMovieDetails() {
   
   const movieId = new URLSearchParams(window.location.search);
@@ -135,27 +113,27 @@ export async function getMovieDetails() {
   const movieContent = createElement('aside');
   addClass(movieContent, 'movie-content');
 
-  const movieTitle = createElement('h2');
+  const movieTitle = createElement('h1');
   addClass(movieTitle, 'movie-title');
   movieTitle.textContent = `${movie.Title}`;
 
-  const movieYear = createElement('p');
+  const movieYear = createElement('h2');
   addClass(movieYear, 'movie-year');
   movieYear.textContent = `Year: ${movie.Year}`;
 
-  const movieRating = createElement('p');
+  const movieRating = createElement('h2');
   addClass(movieRating, 'movie-rating');
   movieRating.textContent = `Rating: ${movie.imdbRating}`;
 
-  const movieGenre = createElement('p');
+  const movieGenre = createElement('h3');
   addClass(movieGenre, 'movie-genre');
   movieGenre.textContent = `Genre: ${movie.Genre}`;
 
-  const movieDirector = createElement('p');
+  const movieDirector = createElement('h3');
   addClass(movieDirector, 'movie-director');
   movieDirector.textContent = `Director: ${movie.Director}`;
 
-  const movieActors = createElement('p');
+  const movieActors = createElement('h3');
   addClass(movieActors, 'movie-actors');
   movieActors.textContent = `Actors: ${movie.Actors}`;
 
@@ -175,4 +153,4 @@ export async function getMovieDetails() {
   appendChild(movieContent, moviePlot);
  }
 
-          
+
