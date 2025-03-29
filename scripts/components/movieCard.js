@@ -6,6 +6,7 @@ import { oData } from "../data/data.js";
 import { handleToggle } from "../utils/utils.js";
 
 
+
 //Get 5 random trailers
 export async function moviesCaroussel() {
   await fetchTopMovies();
@@ -62,6 +63,33 @@ cardImg.addEventListener('click', () => {
 const heartIcon = createElement('i');
 heartIcon.classList.add('fa-heart', 'fa-regular');
 
+
+const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
+if (myFav) {
+  heartIcon.classList.add('fa-solid');
+  heartIcon.classList.remove('fa-regular');
+}
+
+
+heartIcon.addEventListener('click', () => {
+  heartIcon.classList.toggle('fa-solid');
+  heartIcon.classList.toggle('fa-regular');
+
+  const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+  if (heartIcon.classList.contains('fa-solid')) {
+    myFavorit.push(movie);
+  } else {
+    const index = myFavorit.findIndex(fav => fav.imdbId === movie.imdbId);
+    if (index > -1) {
+      myFavorit.splice(index, 1);
+    }
+  }
+  localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
+
+  console.log('Mina favorit filmer: ', myFavorit);
+  
+});
 
 handleToggle(movie, heartIcon);
 

@@ -4,6 +4,21 @@ import { getElement } from "../utils/domUtils.js";
 import { ourRecommendations } from "./movieCard.js";
 
 
+
+export async function fetchImdbMovies() {
+  const searchInput = 'Batman';
+  console.log(searchInput);
+  
+  try {
+      const url = `http://www.omdbapi.com/?apikey=635a622&s=${encodeURIComponent(searchInput)}`;
+      const response = await fetch(url);
+      const imdbSearch = await response.json()
+      console.log("Sökresultat från API: ", imdbSearch);
+      getMovieCard();
+      
+     
+      return imdbSearch;
+
 //=== funktion för att handtera Sök knappen och den ska skicka sök värdret till movieSearch() och byta sida till Search.html ===
 export async function searchFunction() {
   let searchInput = getElement('#searchInput');
@@ -50,6 +65,7 @@ export async function movieSearch() {
           console.log('Movies found:', movies);
           const movieResult = getElement('#cardContainer');
           movieResult.textContent = ''; // rensa tidigare sök
+
 
           movies.forEach(movie => {
               ourRecommendations(movie); // Skicka varje filmer movie card

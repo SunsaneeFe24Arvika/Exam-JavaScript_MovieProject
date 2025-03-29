@@ -33,6 +33,27 @@ export function myFavMovies() {
   });
   }
 
+  localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
+
+ console.log('Mina favorit filmer: ', myFavorit); 
+  
+});
+}   
+
+
+export function updateFavMovies(data) {
+    const myMovies = getFavMovies();
+    myMovies.push(data)
+    myMovies.sort((a, b) => a.title - b.title);
+    localStorage.setItem('myMovies', JSON.stringify(myMovies));
+
+    console.log(myMovies);
+    
+    
+}
+
+
+
 
 
 
