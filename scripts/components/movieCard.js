@@ -1,4 +1,5 @@
 
+
 import { getElement, createElement, appendChild, addClass} from "../utils/domUtils.js";
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
@@ -64,6 +65,7 @@ const heartIcon = createElement('i');
 heartIcon.classList.add('fa-heart', 'fa-regular');
 
 
+
 const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
 const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
 if (myFav) {
@@ -92,7 +94,6 @@ heartIcon.addEventListener('click', () => {
 });
 
 handleToggle(movie, heartIcon);
-
 
 const cardContent = createElement('aside');
 addClass(cardContent, 'card-content');
