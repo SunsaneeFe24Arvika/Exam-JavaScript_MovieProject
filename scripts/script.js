@@ -18,7 +18,6 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
         })
     })
 
-
 } else if(window.location.pathname === '/favorites.html') {
     console.log('favorites.html');
     myFavMovies();
