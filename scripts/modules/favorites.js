@@ -1,57 +1,45 @@
-import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
-import { getFavMovies, addFavMovies, removeFavMovies } from "../data/data.js";
-import { getMovieCard } from "../utils/utils.js";
-
+import { getElement, createElement } from "../utils/domUtils.js";
+import { ourRecommendations } from "../components/movieCard.js";
 
 console.log('Hello from favorites page');
+
+const myFavorit = []; // Definiera en tom array för favoriter
 
 export function favoriteMovies(button) {
     getElement('#favBtn').addEventListener('click', async (event) => {
         event.preventDefault();
-        if(button === event) {
-            window.location.href = 'favorites.html?=';
-
+        if (button === event.target) {
+            window.location.href = 'favorites.html';
         }
-        
-    })
-    
+    });
 }
 
 export function myFavMovies() {
-    getMovieCard();
-    const heartIcon = createElement('i');
-heartIcon.classList.add('fa-heart', 'fa-regular')
+    document.addEventListener('DOMContentLoaded', async () => {
+        const saveMyFavMovies = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+        const cardContainer = getElement('#cardContainer');
+        cardContainer.textContent = ''; // Rensa tidigare innehåll
 
-  heartIcon.addEventListener('click', () => {
-  heartIcon.classList.toggle('fa-solid');
-  heartIcon.classList.toggle('fa-regular');
-
-  const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
-  if (heartIcon.classList.contains('fa-solid')) {
-    myFavorit.push(movie);
-  } else {
-    const index = myFavorit.findIndex(fav => fav.imdbId === movie.imdbId);
-    if (index > -1) {
-      myFavorit.splice(index, 1);
-    }
-  }
-  localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
-
- console.log('Mina favorit filmer: ', myFavorit); 
-  
-});
-}   
-
-
-export function updateFavMovies(data) {
-    const myMovies = getFavMovies();
-    myMovies.push(data)
-    myMovies.sort((a, b) => a.title - b.title);
-    localStorage.setItem('myMovies', JSON.stringify(myMovies));
-
-    console.log(myMovies);
-    
-    
+        if (saveMyFavMovies.length === 0) {
+            const p = createElement('p');
+            p.textContent = 'No favorites in your storage';
+            cardContainer.appendChild(p);
+        } else {
+            saveMyFavMovies.forEach(movie => {
+                ourRecommendations(movie);
+            });
+        }
+    });
 }
 
+localStorage.setItem('favoritesFilm', JSON.stringify(myFavorit));
+console.log('Mina favorit filmer: ', myFavorit);
 
+export function updateFavMovies(data) {
+    const myMovies = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
+    myMovies.push(data);
+    myMovies.sort((a, b) => a.title.localeCompare(b.title)); // Sortera alfabetiskt
+    localStorage.setItem('favoritesFilm', JSON.stringify(myMovies));
+
+    console.log(myMovies);
+}
