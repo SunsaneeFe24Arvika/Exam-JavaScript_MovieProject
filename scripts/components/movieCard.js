@@ -1,8 +1,8 @@
 
-import { getElement, createElement, removeElement, appendChild, addClass, removeClass } from "../utils/domUtils.js";
+import { getElement, createElement, appendChild, addClass } from "../utils/domUtils.js";
 import { fetchTopMovies, getMovies } from "../modules/api.js";
 import { renderTrailers } from "../modules/caroussel.js";
-import { getFavMovies, oData } from "../data/data.js";
+import { oData } from "../data/data.js";
 
 
 //Get 5 random trailers
@@ -29,9 +29,6 @@ export async function getRecommendations() {
    }));
      
   console.log('movieInfo:', movieInfo);
-  
-  
-  
   
   movieInfo.forEach(movie => {
     ourRecommendations(movie);  // Rendera filmer baserat på movieinfo
@@ -66,10 +63,10 @@ heartIcon.classList.add('fa-heart', 'fa-regular')
 const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
 const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
 if (myFav) {
-  heartIcon.addClass('fa-solid');
-  heartIcon.removeClass('fa-regular');
-  
+  heartIcon.classList.add('fa-solid');
+  heartIcon.classList.remove('fa-regular');
 }
+
 
 heartIcon.addEventListener('click', () => {
   heartIcon.classList.toggle('fa-solid');

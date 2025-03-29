@@ -55,33 +55,3 @@ export function updateFavMovies(data) {
 }
 
 
-// export async function addFavMovies(movie) {
-//     const movies = await getFavMovies();
-//     movies.push(movie);
-//     setMovies(movies);
-// }
-
-// export async function removeFavMovies(id) {
-//     log('remove ' + id);
-//     const movies = await getFavMovies();
-//     const filtered = movies.filter(movie => movie.id !== parseInt(id));
-//     setMovies(filtered);
-// }
-
-// function setMovies(movies) {
-//     localStorage.setItem('movies', JSON.stringify(movies));
-// }
-
-
-
-// // const heartIcon = createElement('i');
-// // heartIcon.classList.add('fa-heart', 'fa-regular')
-
-
-// const myFavorit = JSON.parse(localStorage.getItem('favoritesFilm')) || [];
-// const myFav = myFavorit.some(fav => fav.imdbID === movie.imdbId);
-// if (myFav) {
-//   heartIcon.addClass('fa-solid');
-//   heartIcon.removeClass('fa-regular');
-  
-// }
